@@ -249,6 +249,7 @@ export default function DiscoveryFeed() {
                     <Button 
                       size="sm" 
                       className="font-bold text-[10px] px-2.5 h-8 flex items-center gap-1"
+                      onClick={() => navigate(`/chef/${chef.id}`)}
                     >
                       View Menu <ArrowRight className="w-3 h-3" />
                     </Button>

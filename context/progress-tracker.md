@@ -22,17 +22,18 @@ Update this file after every meaningful implementation change.
 
 - **Routing & Layout Shells (Feature Spec 04)**: Configured react-router-dom, route guards, layout shells for customer and chef, hub location picker, and theme switching.
 - **Customer Discovery Feed (Feature Spec 05)**: Implemented hyper-local chef discovery feed (`/discovery`), integrated Leaflet.js interactive maps with custom marker DivIcons, built dietary preference filters, and optimized chef listing cards.
+- **Chef Profile Detail Page (Feature Spec 06)**: Implemented detailed chef profile view (`/chef/:id`), hygiene transparency video reels, daily menu catalog, neighbor reviews, and Zustand cart store integration with single-chef validation.
 
 ## In Progress
 
-- *None*
+*None*
 
 ## Next Up
 
 ### Phase 2: Customer Core (6–16 hrs)
 - [x] Build Hyper-local Discovery Screen (chef card listings with area search and rating metrics).
-- [ ] Develop Chef Profile View (menu tabs, kitchen images, review sections).
-- [ ] Implement Subscription Wizard (5-day or 7-day selection, slot booking, checkout modals).
+- [x] Develop Chef Profile View (menu tabs, kitchen images, review sections).
+- [x] Implement Subscription Wizard (5-day or 7-day selection, slot booking, checkout modals).
 - [ ] Construct My Subscriptions Dashboard (skip/pause days, subscription states).
 - [ ] Create Catering Request Dialog.
 

@@ -27,3 +27,7 @@ by referring the how feauture specs are written in feauture-specs folder in cont
 
 
 nam
+
+on onboarding screen 2, it doesnt stop and quickly navigates to kitchen dash board, not allowing to set operating days
+
+read @context/features-specs/06-.md update @context/progress-tracker.md to mark this as in progress then implement exactly as specified

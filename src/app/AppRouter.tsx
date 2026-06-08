@@ -5,7 +5,7 @@ import Login from './auth/Login'
 import RoleSelection from './onboarding/RoleSelection'
 import ChefWizard from './onboarding/ChefWizard'
 import DiscoveryFeed from './discovery/DiscoveryFeed'
-import ChefProfile from './chef/ChefProfile'
+import ChefDetail from './customer/ChefDetail'
 import Subscriptions from './customer/Subscriptions'
 import AIPlanner from './customer/AIPlanner'
 import OrderTracker from './customer/OrderTracker'
@@ -87,7 +87,7 @@ export default function AppRouter() {
         <Route element={<RequireRole allowedRole="customer" />}>
           <Route element={<CustomerLayout />}>
             <Route path="/discovery" element={<DiscoveryFeed />} />
-            <Route path="/chef/:id" element={<ChefProfile />} />
+            <Route path="/chef/:id" element={<ChefDetail />} />
             <Route path="/subscriptions" element={<Subscriptions />} />
             <Route path="/track/:order_id" element={<OrderTracker />} />
             <Route path="/planner" element={<AIPlanner />} />
