@@ -24,7 +24,7 @@ We need to implement the authentication screens, connect the phone OTP login mec
 2. **Login View (`src/app/auth/Login.tsx`)**:
    - Construct forms using custom inputs. Phone field uses a country prefix selector defaulting to `+92` (Pakistan format).
    - Validation ensures numbers match local networks (e.g. `3xx xxxxxxx`).
-   - Integrate Supabase `signInWithOtp({ phone })` hooks. Since OTP endpoints are mocked or sandbox-based, include a fallback development toggle to sign in with a test verification code (`123456`).
+   - Integrate Supabase `signInWithOtp({ phone })` hooks. Since OTP endpoints are mocked or sandbox-based, include a fallback development toggle to sign in with a test verification code (`669911`).
 
 3. **Role Selection Onboarding (`src/app/onboarding/RoleSelection.tsx`)**:
    - Restrict access to authenticated users whose `profiles.role` column is null.

@@ -71,6 +71,7 @@ useEffect(() => {
 - **Design Tokens**: Do not use arbitrary color codes in styles. Use Tailwind configuration classes mapped to CSS variables (e.g. `bg-primary`, `text-secondary`, `border-border`).
 - **Viewport Layout**: Deliver a mobile-first UI targeting `375px` devices, scaling gracefully up to desktop screen configurations. Ensure no horizontal scrolls occur on target devices.
 - **Touch Targets**: Interactive controls must have a minimum touch area of `44px x 44px`.
+- **Image References**: Use screenshot/image references strictly for layout and visual design inspiration. Do not implement additional features or UI elements depicted in the images that are not explicitly documented in the active build plan.
 
 ## 6. React Best Practices
 

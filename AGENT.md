@@ -22,6 +22,7 @@ To prevent high token consumption and context dilution, **never read all context
 ### General Rules for Context Files:
 - **No Concatenation**: Never read multiple context files in a single turn unless they are directly dependent.
 - **Selective Line Reading**: If you only need to check a specific detail (e.g. database schema for `orders`), use `view_file` with `StartLine` and `EndLine` instead of loading the entire document.
+- **Design Inspiration Only**: Do not include extra features if shown in an image reference. Take images strictly as design/layout inspiration, and stick strictly to the spec plan.
 
 ---
 

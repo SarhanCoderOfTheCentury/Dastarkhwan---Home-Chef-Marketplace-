@@ -7,6 +7,7 @@ This document defines how any AI developer or coding assistant must operate with
 - **Read the Context First**: Before starting any task or making any change, read `AGENT.md` and review the context files.
 - **One Unit at a Time**: Work on a single task unit from the progress tracker or spec checklist at a time. Do not begin work on Unit 2 until Unit 1 is completely implemented, verified, and checked off.
 - **Stay in Your Lane**: Do not write speculative code or add files for features not listed in the current active unit. If you see code that could be refactored elsewhere, do not touch it unless it is explicitly part of the active task.
+- **Image Reference Constraint**: Do not include extra features if shown in an image reference. Use images strictly as design/layout inspiration, and stick strictly to the spec plan.
 
 ## 2. Requirement Clarification & Ambiguity
 

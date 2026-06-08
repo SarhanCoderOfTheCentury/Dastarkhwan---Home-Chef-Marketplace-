@@ -2,6 +2,10 @@
 
 This document details the interface layouts, form fields, action states, and data integrations for each screen in the DastarKhwan application. Layouts are designed mobile-first (375px targets) with adaptive grids for tablet/desktop configurations.
 
+> [!IMPORTANT]
+> **Image References and Scope Control**:
+> Visual assets under the `screens/` directory provide layout, padding, font styling, and aesthetic inspiration. Do NOT implement any features, fields, buttons, or pages shown in these images (such as "Messages" or "Refer to Earn" features) that are not explicitly defined in the project build plan.
+
 ---
 
 ## 1. Register & Login Screen (OTP)
@@ -9,6 +13,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: `/auth/login`
 * **Access**: Public / Unauthenticated
 * **Role**: Landing & Identification
+* **Design Reference**: `screens/register.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```
@@ -44,6 +49,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: `/onboarding/role`
 * **Access**: Authenticated (Profiles with empty role)
 * **Role**: Onboarding
+* **Design Reference**: `screens/onboarding_01.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```
@@ -79,6 +85,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: `/discovery`
 * **Access**: Customer Role
 * **Role**: Core Search & Feed
+* **Design Reference**: `screens/home.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```
@@ -118,6 +125,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: `/chef/:id`
 * **Access**: Customer Role
 * **Role**: Menu Catalog & Reviews
+* **Design Reference**: `screens/chef_details.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```
@@ -155,6 +163,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: Overlays `/chef/:id`
 * **Access**: Customer Role
 * **Role**: Subscription Setup & Checkout
+* **Design Reference**: `screens/checkout.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```
@@ -192,6 +201,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: `/subscriptions`
 * **Access**: Customer Role
 * **Role**: Subscriptions Management
+* **Design Reference**: `screens/orders.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```
@@ -227,6 +237,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: `/track/:order_id`
 * **Access**: Customer Role
 * **Role**: Handoff Tracking
+* **Design Reference**: `screens/order_details_01.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```
@@ -267,6 +278,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: `/chef/dashboard`
 * **Access**: Chef Role
 * **Role**: Operational Status Controller
+* **Design Reference**: `screens/orders_board.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```
@@ -331,6 +343,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: `/onboarding/chef-wizard`
 * **Access**: Chef Role (Uncompleted Profile)
 * **Role**: Store onboarding
+* **Design Reference**: `screens/store_front_setup.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```
@@ -364,6 +377,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: `/chef/earnings`
 * **Access**: Chef Role
 * **Role**: Financial Overview
+* **Design Reference**: `screens/earnings_analytics.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```
@@ -397,6 +411,7 @@ This document details the interface layouts, form fields, action states, and dat
 * **Route**: `/planner`
 * **Access**: Customer Role
 * **Role**: Conversational Matchmaking
+* **Design Reference**: `screens/image.png` (Design/layout inspiration only; do not implement out-of-scope features)
 
 ### ASCII Wireframe
 ```

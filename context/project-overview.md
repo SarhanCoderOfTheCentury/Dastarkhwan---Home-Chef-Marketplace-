@@ -73,6 +73,10 @@ sequenceDiagram
 - **Group Order Pooling Backend**: Neighbors order pooling will be shown as front-end UI banners, while batch pooling logic remains mocked.
 - **Chef KYC Verification**: Automated background checks are mocked; a checklist is shown representing production guidelines.
 
+## Image & Design Reference Rules
+
+- **Design Inspiration Only**: Do not include extra features if shown in an image reference. Take images strictly as design/layout inspiration, and stick strictly to the active MVP plan.
+
 ## Success Criteria
 
 1. A customer can log in, search for a chef in their area, select a meal package, and place a mock subscription order.

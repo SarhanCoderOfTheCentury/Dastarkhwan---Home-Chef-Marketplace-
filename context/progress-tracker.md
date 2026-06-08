@@ -14,21 +14,23 @@ Update this file after every meaningful implementation change.
 
 - **Project Scaffolding**: Setup context files (`project-overview.md`, `architecture.md`, `ui-context.md`, `code-standards.md`, `ai-workflow-rules.md`, `progress-tracker.md`) and root `CLAUDE.md`.
 - **Build Plan Refinement**: Replaced mock GPS/Leaflet tracking maps with status-based tracking and updated the pitch guidelines.
+- **Initialize Vite + React + Tailwind CSS project structure**: Successfully initialized the Vite project in the workspace.
+- **Design System & UI Primitives (Feature Spec 01)**: Created the core custom stylesheet, Tailwind CSS configuration, and standard UI components (Button, Input, Card, Badge, Modal).
+- **Design Inspiration Screen References**: Mapped the design assets in `screens/` to their corresponding screens in `screens.md` and added rules to treat them strictly as visual inspiration to prevent feature scope creep.
+- **Supabase Setup & Seeding (Feature Spec 02)**: Setup PostgreSQL tables (`profiles`, `chefs`, `menus`, `subscriptions`, `orders`, `reviews`), RLS policies, singleton client helper, and seeded 6 Karachi cooks under DHA, Clifton, and Gulshan-e-Iqbal.
+- **Authentication Flow & Onboarding (Feature Spec 03)**: Implemented Zustand state management (`useAuthStore`), lightweight router (`Router`), OTP split-screen login with Pakistani formatting + developer code bypass (`123456`), and the role selection onboarding wizard.
+
+- **Routing & Layout Shells (Feature Spec 04)**: Configured react-router-dom, route guards, layout shells for customer and chef, hub location picker, and theme switching.
+- **Customer Discovery Feed (Feature Spec 05)**: Implemented hyper-local chef discovery feed (`/discovery`), integrated Leaflet.js interactive maps with custom marker DivIcons, built dietary preference filters, and optimized chef listing cards.
 
 ## In Progress
 
-- Initial environment structure setup.
+- *None*
 
 ## Next Up
 
-### Phase 1: Foundation (0–6 hrs)
-- [ ] Initialize Vite + React + Tailwind CSS project structure.
-- [ ] Set up Supabase DB schemas (`profiles`, `chefs`, `menus`, `subscriptions`, `orders`, `reviews`) with RLS.
-- [ ] Configure phone/email OTP signup/login client handlers.
-- [ ] Seed Karachi home cooks data (Clifton, DHA, Gulshan) with custom menu records.
-
 ### Phase 2: Customer Core (6–16 hrs)
-- [ ] Build Hyper-local Discovery Screen (chef card listings with area search and rating metrics).
+- [x] Build Hyper-local Discovery Screen (chef card listings with area search and rating metrics).
 - [ ] Develop Chef Profile View (menu tabs, kitchen images, review sections).
 - [ ] Implement Subscription Wizard (5-day or 7-day selection, slot booking, checkout modals).
 - [ ] Construct My Subscriptions Dashboard (skip/pause days, subscription states).
