@@ -1,0 +1,394 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans, sans-serif); }
+
+  .wrapper { padding: 0 0 2rem; }
+
+  /* Hero */
+  .hero { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 2rem 1.75rem 1.75rem; margin-bottom: 1.5rem; border: 0.5px solid var(--color-border-tertiary); }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--color-background-success); color: var(--color-text-success); font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 99px; margin-bottom: 12px; letter-spacing: .04em; text-transform: uppercase; }
+  .hero-title { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; }
+  .hero-sub { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 1.25rem; max-width: 560px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat-cell { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: .75rem 1rem; }
+  .stat-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .04em; }
+  .stat-val { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+  .stat-note { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+
+  /* Nav tabs */
+  .tabs { display: flex; gap: 0; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); overflow: hidden; margin-bottom: 1.25rem; }
+  .tab-btn { flex: 1; padding: 10px 8px; font-size: 13px; font-weight: 400; color: var(--color-text-secondary); background: var(--color-background-primary); border: none; border-right: 0.5px solid var(--color-border-tertiary); cursor: pointer; transition: all .15s; display: flex; align-items: center; justify-content: center; gap: 5px; }
+  .tab-btn:last-child { border-right: none; }
+  .tab-btn.active { background: var(--color-background-secondary); color: var(--color-text-primary); font-weight: 500; }
+  .tab-btn:hover:not(.active) { background: var(--color-background-secondary); }
+  .tab-btn i { font-size: 15px; }
+
+  /* Panels */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Phase cards */
+  .phase-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 12px; }
+  .phase-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .phase-num { min-width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; flex-shrink: 0; }
+  .p1 { background: var(--color-background-info); color: var(--color-text-info); }
+  .p2 { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .p3 { background: var(--color-background-success); color: var(--color-text-success); }
+  .p4 { background: var(--color-background-danger); color: var(--color-text-danger); }
+  .phase-title-block { flex: 1; }
+  .phase-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 2px; }
+  .phase-meta { font-size: 12px; color: var(--color-text-secondary); }
+  .phase-timeline { font-size: 12px; color: var(--color-text-secondary); background: var(--color-background-secondary); padding: 3px 10px; border-radius: 99px; border: 0.5px solid var(--color-border-tertiary); white-space: nowrap; flex-shrink: 0; }
+  .task-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .task-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
+  .task-item i { color: var(--color-text-success); font-size: 14px; margin-top: 1px; flex-shrink: 0; }
+  .task-item strong { color: var(--color-text-primary); font-weight: 500; }
+
+  /* Feature cards */
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 1rem; }
+  .feat-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.1rem; position: relative; }
+  .feat-card.wow { border-color: var(--color-border-info); }
+  .wow-badge { position: absolute; top: 10px; right: 10px; font-size: 10px; font-weight: 500; background: var(--color-background-info); color: var(--color-text-info); padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .feat-icon { font-size: 22px; color: var(--color-text-secondary); margin-bottom: 8px; }
+  .feat-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .feat-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+
+  /* Tech table */
+  .tech-section { margin-bottom: 1.25rem; }
+  .tech-section-title { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .tech-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .tech-row:last-child { border-bottom: none; }
+  .tech-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); min-width: 120px; }
+  .tech-why { font-size: 12px; color: var(--color-text-secondary); flex: 1; }
+  .tech-tag { font-size: 11px; background: var(--color-background-secondary); color: var(--color-text-secondary); padding: 2px 8px; border-radius: 99px; border: 0.5px solid var(--color-border-tertiary); white-space: nowrap; }
+
+  /* Revenue model */
+  .rev-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 10px; display: flex; gap: 16px; align-items: flex-start; }
+  .rev-icon-wrap { width: 40px; height: 40px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .rev-info { flex: 1; }
+  .rev-name { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 2px; }
+  .rev-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; margin-bottom: 6px; }
+  .rev-amount { font-size: 13px; font-weight: 500; }
+
+  /* Pain points */
+  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+  .pain-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem; }
+  .pain-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .pain-icon { font-size: 18px; color: var(--color-text-danger); }
+  .pain-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .pain-body { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; margin-bottom: 8px; }
+  .pain-solution { font-size: 12px; color: var(--color-text-success); display: flex; align-items: flex-start; gap: 5px; }
+  .pain-solution i { font-size: 13px; margin-top: 1px; flex-shrink: 0; }
+
+  /* MVP scope */
+  .scope-block { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem 1.25rem; margin-bottom: 10px; border-left: 3px solid var(--color-border-info); }
+  .scope-block.dont { border-left-color: var(--color-border-danger); }
+  .scope-title { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .scope-title.do { color: var(--color-text-success); }
+  .scope-title.dont { color: var(--color-text-danger); }
+  .scope-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .scope-list li { font-size: 13px; color: var(--color-text-secondary); display: flex; align-items: flex-start; gap: 7px; line-height: 1.4; }
+  .scope-list li i { font-size: 14px; margin-top: 1px; flex-shrink: 0; }
+  .scope-list li.do i { color: var(--color-text-success); }
+  .scope-list li.dont i { color: var(--color-text-danger); }
+
+  /* Pitch box */
+  .pitch-box { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1.5rem; margin-top: 1.25rem; border: 0.5px solid var(--color-border-tertiary); }
+  .pitch-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--color-text-secondary); margin-bottom: 8px; }
+  .pitch-text { font-size: 15px; color: var(--color-text-primary); line-height: 1.7; font-style: italic; }
+  .pitch-text strong { font-style: normal; font-weight: 500; }
+</style>
+
+<div class="wrapper">
+
+  <div class="hero">
+    <div class="hero-badge"><i class="ti ti-chef-hat" aria-hidden="true"></i> Hackathon Build Plan</div>
+    <div class="hero-title">DastarKhwan — Home Chef Marketplace</div>
+    <div class="hero-sub">A commission-based platform connecting Karachi's home cooks with nearby households seeking authentic, trusted, weekly meal subscriptions and catering. Built for real pain, demo-able in 2 minutes.</div>
+    <div class="hero-stats">
+      <div class="stat-cell">
+        <div class="stat-label">Build window</div>
+        <div class="stat-val">48 hrs</div>
+        <div class="stat-note">Hackathon MVP</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Revenue model</div>
+        <div class="stat-val">15–20%</div>
+        <div class="stat-note">Commission per order</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Core workflow</div>
+        <div class="stat-val">3 screens</div>
+        <div class="stat-note">Browse → Subscribe → Track</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" onclick="switchTab('pain')" role="tab"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Pain</button>
+    <button class="tab-btn" onclick="switchTab('features')" role="tab"><i class="ti ti-sparkles" aria-hidden="true"></i> Features</button>
+    <button class="tab-btn" onclick="switchTab('build')" role="tab"><i class="ti ti-list-check" aria-hidden="true"></i> Build</button>
+    <button class="tab-btn" onclick="switchTab('stack')" role="tab"><i class="ti ti-tools" aria-hidden="true"></i> Stack</button>
+    <button class="tab-btn" onclick="switchTab('revenue')" role="tab"><i class="ti ti-coin" aria-hidden="true"></i> Revenue</button>
+    <button class="tab-btn" onclick="switchTab('scope')" role="tab"><i class="ti ti-target" aria-hidden="true"></i> MVP Scope</button>
+  </div>
+
+  <!-- PAIN -->
+  <div id="panel-pain" class="panel active">
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-header"><i class="ti ti-flame-off pain-icon" aria-hidden="true"></i><span class="pain-title">No food trust</span></div>
+        <div class="pain-body">Restaurant food in Karachi is inconsistent — oil quality, hygiene, and ingredient freshness are unknown to the buyer. People don't trust what they're eating.</div>
+        <div class="pain-solution"><i class="ti ti-check" aria-hidden="true"></i> Chef profiles with verified kitchen photos, ingredient sourcing info, and real reviews from neighbours.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-header"><i class="ti ti-briefcase-off pain-icon" aria-hidden="true"></i><span class="pain-title">Home cooks are invisible</span></div>
+        <div class="pain-body">Thousands of skilled home cooks (especially women) have no channel to monetise. They rely on WhatsApp word-of-mouth with no scalable reach.</div>
+        <div class="pain-solution"><i class="ti ti-check" aria-hidden="true"></i> A chef onboarding flow that goes live in under 10 minutes — menu, pricing, availability, delivery radius.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-header"><i class="ti ti-calendar-off pain-icon" aria-hidden="true"></i><span class="pain-title">Daily ordering fatigue</span></div>
+        <div class="pain-body">Families don't want to think about lunch every day. The mental load of deciding, ordering, and tracking is exhausting — especially for working households.</div>
+        <div class="pain-solution"><i class="ti ti-check" aria-hidden="true"></i> Weekly meal subscription with auto-delivery and a pause/skip feature — zero daily decisions.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-header"><i class="ti ti-cash-off pain-icon" aria-hidden="true"></i><span class="pain-title">Catering is chaotic</span></div>
+        <div class="pain-body">Booking a home cook for a dawat or office event involves 3+ WhatsApp threads, upfront cash, zero accountability, and frequent last-minute cancellations.</div>
+        <div class="pain-solution"><i class="ti ti-check" aria-hidden="true"></i> Structured catering bookings with upfront quotes, escrow payment, and calendar confirmation.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div id="panel-features" class="panel">
+    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:12px;">Core MVP features + wow differentiators that judges will remember.</div>
+    <div class="feature-grid">
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+        <div class="feat-title">Hyper-local discovery</div>
+        <div class="feat-desc">Browse chefs within your neighbourhood or 3km radius. See their home area, delivery days, and signature dishes at a glance.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-repeat" aria-hidden="true"></i></div>
+        <div class="feat-title">Weekly meal subscriptions</div>
+        <div class="feat-desc">Subscribe to a chef for 5 or 7 days per week. Pause, skip, or swap before the weekly cutoff. Auto-renews until cancelled.</div>
+      </div>
+      <div class="feat-card wow">
+        <div class="wow-badge">WOW</div>
+        <div class="feat-icon"><i class="ti ti-brain" aria-hidden="true"></i></div>
+        <div class="feat-title">AI meal planner</div>
+        <div class="feat-desc">User inputs dietary goals (low-carb, high-protein, baby-friendly). AI matches them to nearby chefs whose menus fit — personalised weekly suggestions.</div>
+      </div>
+      <div class="feat-card wow">
+        <div class="wow-badge">WOW</div>
+        <div class="feat-icon"><i class="ti ti-video" aria-hidden="true"></i></div>
+        <div class="feat-title">Kitchen transparency feed</div>
+        <div class="feat-desc">Chefs post short cooking clips to their profile — a TikTok-style hygiene reel. Subscribers see today's prep in real time before their delivery.</div>
+      </div>
+      <div class="feat-card wow">
+        <div class="wow-badge">WOW</div>
+        <div class="feat-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+        <div class="feat-title">Community group orders</div>
+        <div class="feat-desc">Neighbours in the same building or street pool a single order to unlock a lower price. Chef gets a larger batch — everyone wins.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-tool-kitchen-2" aria-hidden="true"></i></div>
+        <div class="feat-title">Catering booking</div>
+        <div class="feat-desc">Request a chef for your dawat with guest count, menu preferences, and date. Chef sends a quote within 2 hours. Escrow payment on confirmation.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-truck-delivery" aria-hidden="true"></i></div>
+        <div class="feat-title">Manual Delivery Coordination</div>
+        <div class="feat-desc">Chef manually assigns external rider details (name & phone) and updates the order status, triggering instant customer updates and WhatsApp alerts.</div>
+      </div>
+      <div class="feat-card wow">
+        <div class="wow-badge">WOW</div>
+        <div class="feat-icon"><i class="ti ti-certificate" aria-hidden="true"></i></div>
+        <div class="feat-title">Chef trust score</div>
+        <div class="feat-desc">Algorithmic score combining hygiene photo verification, on-time delivery rate, order completion %, and verified review count. Shown prominently on each chef card.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUILD PLAN -->
+  <div id="panel-build" class="panel">
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-num p1">1</div>
+        <div class="phase-title-block">
+          <div class="phase-title">Foundation — Auth, DB schema, and base UI</div>
+          <div class="phase-meta">Day 1 · Morning (0–6 hrs)</div>
+        </div>
+        <div class="phase-timeline">0–6 hrs</div>
+      </div>
+      <ul class="task-list">
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Project setup</strong> — Vite + React + Tailwind, Supabase project init, GitHub repo</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>DB schema</strong> — users, chefs, menus, subscriptions, orders, reviews tables with RLS</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Auth</strong> — Supabase Auth with phone/email OTP (Pakistani users trust OTP)</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Role system</strong> — customer vs chef mode, stored in profiles table</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Seed data</strong> — 6 mock chefs in Karachi (DHA, Gulshan, Clifton) with menus and photos</span></li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-num p2">2</div>
+        <div class="phase-title-block">
+          <div class="phase-title">Customer-facing core — Browse, Chef Profile, Subscribe</div>
+          <div class="phase-meta">Day 1 · Afternoon (6–16 hrs)</div>
+        </div>
+        <div class="phase-timeline">6–16 hrs</div>
+      </div>
+      <ul class="task-list">
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Discovery screen</strong> — chef cards grid with area filter, trust score badge, cuisine tags, distance</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Chef profile screen</strong> — bio, kitchen photo gallery, full menu with prices, delivery days, reviews</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Subscription flow</strong> — pick plan (5-day/7-day), select delivery slot, payment screen (Easypaisa/JazzCash)</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>My subscriptions dashboard</strong> — active plans, upcoming week's menu, pause/skip button</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Catering request form</strong> — date, guests, cuisine preference, notes → sends to chef</span></li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-num p3">3</div>
+        <div class="phase-title-block">
+          <div class="phase-title">Chef-facing dashboard + AI meal planner</div>
+          <div class="phase-meta">Day 1–2 · Night (16–30 hrs)</div>
+        </div>
+        <div class="phase-timeline">16–30 hrs</div>
+      </div>
+      <ul class="task-list">
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Chef onboarding</strong> — 4-step wizard: profile, kitchen photos, menu builder, delivery zones</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Orders view</strong> — today's deliveries list, subscription roster, catering quote inbox</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Earnings dashboard</strong> — weekly revenue chart, commission breakdown, payout history</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>AI meal planner</strong> — OpenRouter API call: takes user's dietary goals → returns ranked chef recommendations with explanation (streaming)</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Trust score computation</strong> — calculated from DB fields: delivery rate, review avg, photo count</span></li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-num p4">4</div>
+        <div class="phase-title-block">
+          <div class="phase-title">Polish, demo prep, and pitch mode</div>
+          <div class="phase-meta">Day 2 · Final push (30–48 hrs)</div>
+        </div>
+        <div class="phase-timeline">30–48 hrs</div>
+      </div>
+      <ul class="task-list">
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Manual delivery tracking</strong> — Chef manual updates with 4-step status chain, manual input of external rider details, and instant UI updates via Supabase Realtime</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Group order UI</strong> — "Join neighbours" banner on chef profile, pooled-order count widget</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Mobile responsiveness</strong> — test on 375px iPhone viewport, fix nav, cards, forms</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Demo script</strong> — 2-min walk: open app → browse chefs → subscribe → chef sees order → AI suggests meals</span></li>
+        <li class="task-item"><i class="ti ti-check" aria-hidden="true"></i><span><strong>Landing page header</strong> — hero with value prop, "Join as Chef" CTA, trust stats (mock numbers)</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STACK -->
+  <div id="panel-stack" class="panel">
+    <div class="tech-section">
+      <div class="tech-section-title">Frontend</div>
+      <div class="tech-row"><div class="tech-name">React + Vite</div><div class="tech-why">Fast dev server, familiar — you've used this on TrafficMind</div><div class="tech-tag">UI</div></div>
+      <div class="tech-row"><div class="tech-name">Tailwind CSS</div><div class="tech-why">Rapid utility styling, mobile-first grid out of the box</div><div class="tech-tag">Styling</div></div>
+      <div class="tech-row"><div class="tech-name">Zustand</div><div class="tech-why">Lightweight state — cart, auth session, active subscription</div><div class="tech-tag">State</div></div>
+      <div class="tech-row"><div class="tech-name">Leaflet.js</div><div class="tech-why">Free OSM map for hyper-local chef discovery (no real-time delivery map needed)</div><div class="tech-tag">Maps</div></div>
+      <div class="tech-row"><div class="tech-name">Recharts</div><div class="tech-why">Chef earnings dashboard — revenue bar chart</div><div class="tech-tag">Charts</div></div>
+    </div>
+    <div class="tech-section">
+      <div class="tech-section-title">Backend & database</div>
+      <div class="tech-row"><div class="tech-name">Supabase</div><div class="tech-why">Postgres + Auth + Realtime + Storage in one — no backend to deploy</div><div class="tech-tag">BaaS</div></div>
+      <div class="tech-row"><div class="tech-name">Supabase RLS</div><div class="tech-why">Row-level security: customers see own orders, chefs see their batches only</div><div class="tech-tag">Security</div></div>
+      <div class="tech-row"><div class="tech-name">Edge Functions</div><div class="tech-why">Commission calculation, subscription renewal trigger, WhatsApp webhook</div><div class="tech-tag">Logic</div></div>
+    </div>
+    <div class="tech-section">
+      <div class="tech-section-title">AI & integrations</div>
+      <div class="tech-row"><div class="tech-name">OpenRouter API</div><div class="tech-why">OpenRouter API (e.g. Claude 3.5 Sonnet) for meal planner — dietary goal → chef match, streaming</div><div class="tech-tag">AI</div></div>
+      <div class="tech-row"><div class="tech-name">WhatsApp (Twilio)</div><div class="tech-why">Order confirmation, delivery ETA, subscription reminders via WA — what Pakistanis actually use</div><div class="tech-tag">Comms</div></div>
+      <div class="tech-row"><div class="tech-name">Easypaisa API</div><div class="tech-why">Local mobile payment — no credit card required, covers unbanked users</div><div class="tech-tag">Payments</div></div>
+    </div>
+    <div class="tech-section">
+      <div class="tech-section-title">Deployment</div>
+      <div class="tech-row"><div class="tech-name">Vercel</div><div class="tech-why">One-click deploy from GitHub, auto-preview URLs for demo</div><div class="tech-tag">Hosting</div></div>
+    </div>
+  </div>
+
+  <!-- REVENUE -->
+  <div id="panel-revenue" class="panel">
+    <div class="rev-card">
+      <div class="rev-icon-wrap" style="background:var(--color-background-success)"><i class="ti ti-receipt-2" style="font-size:20px;color:var(--color-text-success)" aria-hidden="true"></i></div>
+      <div class="rev-info">
+        <div class="rev-name">Transaction commission</div>
+        <div class="rev-desc">15% on every order placed through the platform — subscriptions and one-off catering. Auto-deducted from chef payout. Clear to chef during onboarding.</div>
+        <div class="rev-amount" style="color:var(--color-text-success)">15% per order (core revenue)</div>
+      </div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-icon-wrap" style="background:var(--color-background-info)"><i class="ti ti-star" style="font-size:20px;color:var(--color-text-info)" aria-hidden="true"></i></div>
+      <div class="rev-info">
+        <div class="rev-name">Chef Pro subscription</div>
+        <div class="rev-desc">PKR 999/month for premium listing placement, analytics dashboard, and a "Verified Kitchen" badge. Reduces commission to 10% at this tier.</div>
+        <div class="rev-amount" style="color:var(--color-text-info)">~PKR 999/mo per pro chef</div>
+      </div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-icon-wrap" style="background:var(--color-background-warning)"><i class="ti ti-truck" style="font-size:20px;color:var(--color-text-warning)" aria-hidden="true"></i></div>
+      <div class="rev-info">
+        <div class="rev-name">Delivery fulfillment</div>
+        <div class="rev-desc">Delivery is coordinated externally by the chef (via private or third-party delivery services like Bykea/Yango). Chef manually shares the rider details with the customer through the app. No platform rider network is managed for now.</div>
+        <div class="rev-amount" style="color:var(--color-text-warning)">Coordinated externally by Chef</div>
+      </div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-icon-wrap" style="background:var(--color-background-secondary)"><i class="ti ti-users" style="font-size:20px;color:var(--color-text-secondary)" aria-hidden="true"></i></div>
+      <div class="rev-info">
+        <div class="rev-name">B2B corporate meals</div>
+        <div class="rev-desc">Long-term play — offices subscribe to a home chef for employee lunch. Higher order value, predictable revenue, lower CAC.</div>
+        <div class="rev-amount" style="color:var(--color-text-secondary)">Future — post-launch</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MVP SCOPE -->
+  <div id="panel-scope" class="panel">
+    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:14px;">What to build vs. what to fake for the hackathon demo. One core workflow end-to-end beats ten half-built features.</div>
+    <div class="scope-block">
+      <div class="scope-title do"><i class="ti ti-check" aria-hidden="true"></i> Build for real</div>
+      <ul class="scope-list">
+        <li class="do"><i class="ti ti-check" aria-hidden="true"></i> Chef discovery page with 6 seeded Karachi chefs, area filter, trust score</li>
+        <li class="do"><i class="ti ti-check" aria-hidden="true"></i> Chef profile page — menu, kitchen photos, reviews</li>
+        <li class="do"><i class="ti ti-check" aria-hidden="true"></i> Subscription checkout flow (UI complete, payment mocked or real Easypaisa sandbox)</li>
+        <li class="do"><i class="ti ti-check" aria-hidden="true"></i> Chef dashboard — orders list, weekly earnings bar chart</li>
+        <li class="do"><i class="ti ti-check" aria-hidden="true"></i> AI meal planner — real OpenRouter API call with streaming response</li>
+        <li class="do"><i class="ti ti-check" aria-hidden="true"></i> Mobile-responsive layout — judges demo on phone</li>
+        <li class="do"><i class="ti ti-check" aria-hidden="true"></i> Status-based tracking — 4-stage manual status update, manual rider detail assignment by Chef & instant Supabase Realtime sync</li>
+      </ul>
+    </div>
+    <div class="scope-block dont">
+      <div class="scope-title dont"><i class="ti ti-x" aria-hidden="true"></i> Fake or defer</div>
+      <ul class="scope-list">
+        <li class="dont"><i class="ti ti-x" aria-hidden="true"></i> Real-time GPS mapping & Rider App (delivery is coordinated via external riders; rider details are manually set by the chef)</li>
+        <li class="dont"><i class="ti ti-x" aria-hidden="true"></i> WhatsApp notifications (show a mock notification screenshot in demo, or triggered via sandbox)</li>
+        <li class="dont"><i class="ti ti-x" aria-hidden="true"></i> Chef verification / KYC flow (say "in production we verify kitchen hygiene photos")</li>
+        <li class="dont"><i class="ti ti-x" aria-hidden="true"></i> Group order pooling backend logic (show the UI, say "orders pool at midnight")</li>
+        <li class="dont"><i class="ti ti-x" aria-hidden="true"></i> Full subscription billing / auto-renew (demo the flow, explain the logic)</li>
+      </ul>
+    </div>
+
+    <div class="pitch-box">
+      <div class="pitch-label"><i class="ti ti-microphone" aria-hidden="true"></i> 30-second pitch</div>
+      <div class="pitch-text">"In Karachi, <strong>millions of skilled home cooks can't reach customers</strong> beyond WhatsApp, while families order from restaurants they don't trust. DastarKhwan fixes both sides. We don't use GPS tracking or a rider network — home chef delivery is personal and coordinated externally. When Chef Sana assigns a rider and marks your order out for delivery, you get a WhatsApp message with the rider's name and phone number. That's how it actually works in this context, and customers trust it more than a moving pin. <strong>We take 15% per order</strong>, and our AI matches your dietary goals to the right chef nearby. We're not disrupting food delivery — we're creating a new category: <strong>the neighbourhood kitchen economy</strong>."</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+</script>
